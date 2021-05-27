@@ -1,0 +1,138 @@
+import java.util.Random;
+
+public class MatrizAleatoria
+{
+   private final int L, C;
+   private int m[][];
+
+   public MatrizAleatoria(int linhas, int colunas)
+   {
+      L = linhas;
+      C = colunas;
+      m = new int[L][C];
+
+      Random gerador = new Random();
+      for (int i = 0; i < L; i++)
+         for (int j = 0; j < C; j++)
+            m[i][j] = gerador.nextInt(100);
+   }
+
+   public String toString()
+   {
+      String aux = "";
+
+      for (int i = 0; i < L; i++)
+      {
+         for (int j = 0; j < C; j++)
+            aux += m[i][j] + "\t";
+
+         aux += "\n";
+      }
+
+      // System.out.println(aux);
+      return aux;
+   }
+
+   public void somaLinhaColuna()
+   {
+      for (int i = 0; i < L; i++)
+         for (int j = 0; j < C; j++)
+            m[i][j] = i + j;
+   }
+
+   public void multiplicaPor(int n)
+   {
+      for (int i = 0; i < L; i++)
+         for (int j = 0; j < C; j++)
+            m[i][j] *= n;
+   }
+
+   public int[][] somaCom(int n[][])
+   {
+      int linhas = n.length;
+      int colunas = n[0].length;
+
+      if ((linhas != L) || (colunas != C))
+         return m;
+
+      int[][] aux = new int[L][C];
+      for (int i = 0; i < L; i++)
+         for (int j = 0; j < C; j++)
+            aux[i][j] = m[i][j] + n[i][j];
+
+      return aux;
+   }
+
+   public int[][] binaria()
+   {
+      int[][] aux = new int[L][C];
+      for (int i = 0; i < L; i++)
+         for (int j = 0; j < C; j++)
+            aux[i][j] = m[i][j] % 2;
+
+      return aux;
+   }
+
+   public boolean isQuadrada()
+   {
+      // retorna se a matriz é quadrada
+      return (L == C);
+   }
+
+   public int[] diagonalPrincipal()
+   {
+       if (!isQuadrada())
+          return null;
+
+       int aux[] = new int[L];
+       for (int i = 0; i < L; i++)
+          aux[i] = m[i][i];
+
+       return aux;
+   }
+
+   public String trianguloInferiorPrincipal()
+   {
+      String aux = "";
+
+      if (isQuadrada())
+      {
+         for (int i = 1; i < L; i++)
+         {
+            for (int j = 0; j < i; j++)
+               aux = aux + m[i][j] + "\t";
+            aux = aux + "\n";
+         }
+      }
+
+      return aux;      
+   }
+   
+   public String trianguloSuperiorSecundaria()
+   {
+      String aux = "";
+
+      if (isQuadrada())
+      {
+         for (int i = 0; i < L-1; i++)
+         {
+            for (int j = 0; j < (L-i-1); j++)
+               aux = aux + m[i][j] + "\t";
+            aux = aux + "\n";
+         }
+      }
+
+      return aux;
+   }
+
+   public int[][] transposta()
+   {
+      int aux[][] = new int[C][L];
+
+      for (int i = 0; i < C; i++)
+         for (int j = 0; j < L; j++)
+            aux[i][j] = m[j][i];
+
+      return aux;
+   }
+}
